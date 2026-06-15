@@ -1272,7 +1272,7 @@ function triggerLevelSuccessActions() {
 
     // Progress logic
     if (currentLevelIndex === unlockedLevelIndex) {
-        unlockedLevelIndex = Math.min(unlockedLevelIndex + 1, window.KLETTERPARK_LEVELS.length - 1);
+        unlockedLevelIndex = Math.min(unlockedLevelIndex + 1, window.KLETTERPARK_LEVELS.length);
     }
     updateLevelsProgress();
 
@@ -1518,24 +1518,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const isCollapsed = sidebarRight.classList.toggle('collapsed');
             
-            // Update button label and icon
+            // Update button label and toggle state class
+            sidebarToggleBtn.classList.toggle('collapsed-state', isCollapsed);
             const btnSpan = sidebarToggleBtn.querySelector('span');
-            const btnIcon = sidebarToggleBtn.querySelector('i, svg');
             
             if (btnSpan) {
                 btnSpan.innerText = isCollapsed ? "Hilfe einblenden" : "Hilfe ausblenden";
-            }
-            
-            if (btnIcon) {
-                const newIcon = document.createElement('i');
-                newIcon.setAttribute('data-lucide', isCollapsed ? 'book' : 'book-open');
-                newIcon.style.width = '18px';
-                newIcon.style.height = '18px';
-                btnIcon.replaceWith(newIcon);
-            }
-            
-            if (window.lucide) {
-                window.lucide.createIcons();
             }
             
             // Smoothly animate Three.js canvas size adjustment in sync with CSS transition
