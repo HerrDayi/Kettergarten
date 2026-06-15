@@ -1176,7 +1176,7 @@ body.theme-light .result-box.success h4 { color: #166534; }
 }
 
 /* Responsive Styles for iPad */
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
     body {
         overflow-y: auto;
         height: auto;
@@ -1217,6 +1217,19 @@ body.theme-light .result-box.success h4 { color: #166534; }
     .hud-scenarios {
         bottom: 10px;
         left: 10px;
+    }
+
+    .math-sidebar.collapsed {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        border-top: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
     }
 }
 

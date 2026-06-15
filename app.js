@@ -991,6 +991,18 @@ function updateLevelsProgress() {
             }
         }
     });
+    // Update Mode switch button lock indicator
+    const freeModeBtn = document.getElementById('btn-mode-free');
+    if (freeModeBtn) {
+        const isTestMode = document.getElementById('btn-solve-cheat') !== null;
+        if (unlockedLevelIndex < 5 && !isTestMode) {
+            freeModeBtn.innerHTML = '🔒 Freies Bauen';
+            freeModeBtn.style.opacity = '0.65';
+        } else {
+            freeModeBtn.innerHTML = 'Freies Bauen';
+            freeModeBtn.style.opacity = '1';
+        }
+    }
     lucide.createIcons();
 }
 
@@ -1323,7 +1335,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mode Toggle Buttons
     document.getElementById('btn-mode-learn').addEventListener('click', () => toggleMode('learn'));
-    document.getElementById('btn-mode-free').addEventListener('click', () => toggleMode('free'));
+    document.getElementById('btn-mode-free').addEventListener('click', () => {
+        const isTestMode = document.getElementById('btn-solve-cheat') !== null;
+        if (unlockedLevelIndex < 5 && !isTestMode) {
+            showToast('🔒 Der freie Modus wird erst nach Level 5 freigeschaltet!', true);
+        } else {
+            toggleMode('free');
+        }
+    });
 
     // Check Answers Level
     document.getElementById('btn-check-answer').addEventListener('click', checkLevelAnswers);
@@ -1471,17 +1490,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modalCloseBtn.addEventListener('click', () => {
         modal.classList.remove('active');
+        loadLevel(currentLevelIndex);
     });
 
     modal.addEventListener('click', (e) => {
         if (e.target === modal && !modal.classList.contains('onboarding-mode')) {
             modal.classList.remove('active');
+            loadLevel(currentLevelIndex);
         }
     });
 
     // Onboarding start project button
     document.getElementById('btn-start-project').addEventListener('click', () => {
         modal.classList.remove('active', 'onboarding-mode');
+        loadLevel(currentLevelIndex);
     });
 
     // Theme Toggle Event Listener
@@ -1498,14 +1520,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Update button label and icon
             const btnSpan = sidebarToggleBtn.querySelector('span');
-            const btnIcon = document.getElementById('sidebar-toggle-icon');
+            const btnIcon = sidebarToggleBtn.querySelector('i, svg');
             
-            if (isCollapsed) {
-                if (btnSpan) btnSpan.innerText = "Hilfe einblenden";
-                if (btnIcon) btnIcon.setAttribute('data-lucide', 'book');
-            } else {
-                if (btnSpan) btnSpan.innerText = "Hilfe ausblenden";
-                if (btnIcon) btnIcon.setAttribute('data-lucide', 'book-open');
+            if (btnSpan) {
+                btnSpan.innerText = isCollapsed ? "Hilfe einblenden" : "Hilfe ausblenden";
+            }
+            
+            if (btnIcon) {
+                const newIcon = document.createElement('i');
+                newIcon.setAttribute('data-lucide', isCollapsed ? 'book' : 'book-open');
+                newIcon.style.width = '18px';
+                newIcon.style.height = '18px';
+                btnIcon.replaceWith(newIcon);
             }
             
             if (window.lucide) {
