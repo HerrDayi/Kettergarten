@@ -1134,7 +1134,7 @@ function loadLevel(index) {
         const cardEl = document.createElement('div');
         cardEl.className = `help-card-item ${cIdx === 0 ? 'active' : ''}`;
         cardEl.innerHTML = `
-            <div class="help-card-header" onclick="toggleHelpCard(this)">
+            <div class="help-card-header">
                 <span>${card.title}</span>
                 <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
             </div>
@@ -1142,6 +1142,12 @@ function loadLevel(index) {
                 ${card.content.replace(/\n/g, '<br>')}
             </div>
         `;
+        
+        const header = cardEl.querySelector('.help-card-header');
+        if (header) {
+            header.addEventListener('click', () => toggleHelpCard(header));
+        }
+        
         helpContainer.appendChild(cardEl);
     });
     lucide.createIcons();

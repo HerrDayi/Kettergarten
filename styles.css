@@ -373,6 +373,8 @@ header {
 
 .math-sidebar {
     width: var(--mathbar-width);
+    min-width: var(--mathbar-width);
+    max-width: var(--mathbar-width);
     border-left: 1px solid var(--border-color);
     background: var(--bg-sidebar);
     backdrop-filter: blur(8px);
@@ -1198,6 +1200,8 @@ body.theme-light .result-box.success h4 { color: #166534; }
     
     .math-sidebar {
         width: 100%;
+        min-width: 0 !important;
+        max-width: none !important;
         height: auto;
         max-height: none;
         border-left: none;
@@ -1264,12 +1268,12 @@ body.theme-light .result-box.success h4 { color: #166534; }
 }
 
 /* Sidebar toggle icon switching */
-#btn-sidebar-toggle .icon-closed {
+#btn-sidebar-toggle [data-lucide="book"] {
     display: none !important;
 }
-#btn-sidebar-toggle.collapsed-state .icon-open {
+#btn-sidebar-toggle.collapsed-state [data-lucide="book-open"] {
     display: none !important;
 }
-#btn-sidebar-toggle.collapsed-state .icon-closed {
+#btn-sidebar-toggle.collapsed-state [data-lucide="book"] {
     display: inline-block !important;
 }
