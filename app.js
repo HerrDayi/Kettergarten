@@ -1164,14 +1164,12 @@ function loadLevel(index) {
 
 function toggleHelpCard(headerEl) {
     const item = headerEl.parentElement;
-    const isActive = item.classList.contains('active');
     
     // Close other help cards
     document.querySelectorAll('.help-card-item').forEach(el => el.classList.remove('active'));
     
-    if (!isActive) {
-        item.classList.add('active');
-    }
+    // Always keep the clicked card open (cannot collapse it by clicking again)
+    item.classList.add('active');
 }
 
 /**
